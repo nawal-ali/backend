@@ -1,9 +1,9 @@
-// require('dotenv').config()
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 //, { useNewUrlParser: true }
-mongoose.connect("mongodb+srv://nawal:0u2RZK5NaMULyJkN@cluster0.cwd3x9n.mongodb.net/store")
+mongoose.connect(process.env.DATABASE_URL)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
