@@ -12,6 +12,122 @@ router.get('/all', async (req, res) => {
     }
 })
 
+//------------------------- getting categories ----------------
+router.get('/', async (req, res) => {
+    try {
+        const { na } = req.query;
+        let search = {};
+        if (na) {
+            search.$or = [
+                { name: { $regex: `^${na}`, $options: 'i' } }
+            ];
+        }
+        const pro = await Products.find(search);
+        res.json({ action: 'success', count: pro.length, data: pro });
+    } catch (err) {
+        res.status(500).json({ message: 'Product not found', error: err.message });
+    }
+});
+
+
+router.get('/desktop', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'desktop' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
+router.get('/laptop', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'laptop' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
+router.get('/monitor', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'monitor' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
+router.get('/tv', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'tv' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
+router.get('/gaming', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'gaming' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
+router.get('/accessories', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'accessories' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
+router.get('/bluetooth-speaker', async (req, res) => {
+    try {
+        const { price } = req.query
+        let search = {}
+        search.$or = [
+            { category: 'bluetooth-speaker' }
+        ]
+        const pro = await Products.find(search)
+        res.json({ action: 'success', count: pro.length, data: pro })
+    } catch (err) {
+        res.json({ message: 'product not found' })
+    }
+})
+
 //get one product
 router.get('/:id', async (req, res) => {
     const product = await Products.findById(req.params.id)
