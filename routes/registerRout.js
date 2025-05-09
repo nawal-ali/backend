@@ -1,9 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const { User, validateCreateUser } = require('../models/userM.js')
-const bcrypt = require('bcryptjs')
+// const bcrypt = require('bcryptjs')
 
-router.post('/register', async (req, res) => {
+// const salt = await bcrypt.genSalt(10);
+// const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+router.get('/allusers', async (req, res) => {
+    try {
+        const allUsers = await User.find()
+        res.json({ action: 'success', count: allUsers.length, data: allUsers })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+router.post('/', async (req, res) => {
     const { error } = validateCreateUser(req.body)
     if (error) {
         res.json({ message: error.details[0].message })
@@ -25,3 +37,4 @@ router.post('/register', async (req, res) => {
         res.status(400).json({ message: err.message })
     }
 })
+module.exports = router;
